@@ -9,13 +9,19 @@ function NewFellowForm(props) {
   const [imageUrl, setImageUrl] = useState("");
   useEffect(() => {
     async function fetchData() {
-      const response = await fetch(
-        "https://api.unsplash.com/search/photos?query=cats&client_id=4PnKEP6pK9DtkwqbsfA17cNT2NaKJeAgQ0oXOjnWxfE&orientation=landscape"
-      );
-      const data = await response.json();
-      const randomIndex = Math.floor(Math.random() * 10) + 1;
-      const image = data.results[randomIndex].urls.regular;
-      setImageUrl(image);
+      try {
+        const response = await fetch(
+          "https://api.unsplash.com/search/photos?query=cats&client_id=4PnKEP6pK9DtkwqbsfA17cNT2NaKJeAgQ0oXOjnWxfE&orientation=landscape"
+        );
+        const data = await response.json();
+        const randomIndex = Math.floor(Math.random() * 10) + 1;
+
+        const image = data.results[randomIndex];
+
+        setImageUrl(image.urls.full);
+      } catch (err) {
+        console.error("Error fetching image: ", err);
+      }
     }
     fetchData();
   }, []);
