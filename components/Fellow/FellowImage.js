@@ -3,7 +3,7 @@ import classes from "./FellowImage.module.css";
 function FellowImage(props) {
   return (
     <div className={classes.image}>
-      <img src={props.image} />
+      {props.image ? <img src={props.image} /> : props.error}
     </div>
   );
 }

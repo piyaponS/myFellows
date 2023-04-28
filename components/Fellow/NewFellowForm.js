@@ -7,6 +7,7 @@ function NewFellowForm(props) {
   const titleInput = useRef();
   const contentInput = useRef();
   const [imageUrl, setImageUrl] = useState("");
+  const [error, setError] = useState("");
   useEffect(() => {
     async function fetchData() {
       try {
@@ -21,6 +22,7 @@ function NewFellowForm(props) {
         setImageUrl(image.urls.full);
       } catch (err) {
         console.error("Error fetching image: ", err);
+        setError("Please refresh page again :(");
       }
     }
     fetchData();
@@ -54,7 +56,7 @@ function NewFellowForm(props) {
         </div>
         <div className={classes.control}>
           <label>Fellow Image</label>
-          <FellowImage image={imageUrl} />
+          <FellowImage image={imageUrl} error={error} />
         </div>
         <div className={classes.actions}>
           <button>Add New Fellow</button>
